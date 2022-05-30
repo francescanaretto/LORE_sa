@@ -71,9 +71,7 @@ def main():
     from lore_sa.lorem import LOREM
 
     lore_explainer = LOREM(X_test, bb_predict, bb_predict_proba, feature_names, class_name, class_values, numeric_columns, features_map,
-                           neigh_type='geneticp', categorical_use_prob=True, continuous_fun_estimation=False,
-                           size=1000, ocr=0.1, random_state=random_state, ngen=10, bb_predict_proba=bb_predict_proba,
-                           verbose=True, encdec=None, K_transformed=X_test)
+                           neigh_type='random', random_state=random_state, ngen=10, verbose=True, encdec=None, K_transformed=X_test)
 
     exp = lore_explainer.explain_instance_stable(x, samples=1000, use_weights=True, metric=neuclidean)
 

@@ -34,7 +34,7 @@ def default_kernel(d, kernel_width):
 class LOREM(object):
 
     def __init__(self, K, bb_predict, predict_proba, feature_names, class_name, class_values, numeric_columns, features_map,
-                 neigh_type='genetic', K_transformed=None, categorical_use_prob=True, continuous_fun_estimation=False,
+                 neigh_type, K_transformed=None, categorical_use_prob=True, continuous_fun_estimation=False,
                  size=1000, ocr=0.1, multi_label=False, one_vs_rest=False, filter_crules=True, init_ngb_fn=True,
                  kernel_width=None, kernel=None, random_state=None, encdec = None, dataset = None, binary=False, discretize=True, verbose=False,
                  extreme_fidelity = False, constraints = None, **kwargs):
@@ -95,7 +95,9 @@ class LOREM(object):
             self.__init_neighbor_fn(ocr, categorical_use_prob, continuous_fun_estimation, size, kwargs)
 
     def explain_instance(self, x, samples=1000, use_weights=True, metric=neuclidean):
-
+        """
+         DEPRECATED!!!
+        """
         if isinstance(samples, int):
             if self.verbose:
                 print('generating neighborhood - %s' % self.neigh_type)
