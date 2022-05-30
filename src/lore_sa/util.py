@@ -2,8 +2,7 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 
-import SuperLore.encdec
-from .encdec import *
+from lore_sa.encdec import *
 from scipy.spatial.distance import jaccard
 import warnings
 

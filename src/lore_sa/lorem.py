@@ -15,15 +15,15 @@ from scipy.spatial.distance import cdist
 from sklearn.dummy import DummyClassifier
 from sklearn.metrics import accuracy_score
 
-from .rule import Rule, compact_premises, get_counterfactual_rules_supert, get_rule_supert
+from lore_sa.rule import Rule, compact_premises, get_counterfactual_rules_supert, get_rule_supert
 
-from .explanation import Explanation, MultilabelExplanation
-from .neighgen import RandomGenerator, GeneticGenerator, RandomGeneticGenerator, ClosestInstancesGenerator, CFSGenerator, CounterGenerator
-from .neighgen import GeneticProbaGenerator, RandomGeneticProbaGenerator
-from .rule import get_rule, get_counterfactual_rules
-from .util import calculate_feature_values, neuclidean, multilabel2str, multi_dt_predict, record2str
-from .discretizer import *
-from .encdec import *
+from lore_sa.explanation import Explanation, MultilabelExplanation
+from lore_sa.neighgen import RandomGenerator, GeneticGenerator, RandomGeneticGenerator, ClosestInstancesGenerator, CFSGenerator, CounterGenerator
+from lore_sa.neighgen import GeneticProbaGenerator, RandomGeneticProbaGenerator
+from lore_sa.rule import get_rule, get_counterfactual_rules
+from lore_sa.util import calculate_feature_values, neuclidean, multilabel2str, multi_dt_predict, record2str
+from lore_sa.discretizer import *
+from lore_sa.encdec import *
 
 
 def default_kernel(d, kernel_width):
