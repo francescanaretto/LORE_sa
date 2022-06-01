@@ -40,7 +40,23 @@ class NeighborhoodGenerator(object):
 
     @abstractmethod
     def generate(self, x, num_samples=1000):
+        """
+         Generates `num_samples' synthetic records starting from the orginal value `x'
+
+         x: Any, record instance to use as seed
+         num_sample: int, the size of the neighborhood to generate
+        """
         return
+
+    def multi_generate(self, x, samples=1000, runs=1):
+        Z_list = list()
+        for i in range(runs):
+            # if self.verbose:
+            #     print('generating neighborhood [%s/%s] - %s' % (i, runs, self.neigh_gen.__class__))
+                #print(samples, x)
+            Z = self.generate(x, samples)
+            Z_list.append(Z)
+        return Z_list
 
     # qui dobbiamo prima decodificare
     def apply_bb_predict(self, X, encoded = None):

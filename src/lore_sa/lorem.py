@@ -101,16 +101,6 @@ class LOREM(object):
         weights = self.kernel(distances)
         return weights
 
-    def multi_neighgen_fn(self, x, runs, samples, kwargs=None):
-        Z_list = list()
-        for i in range(runs):
-            if self.verbose:
-                print('generating neighborhood [%s/%s] - %s' % (i, runs, self.neigh_gen.__class__))
-                #print(samples, x)
-            Z = self.neigh_gen.generate(x, samples)
-            Z_list.append(Z)
-        return Z_list
-
     def get_feature_importance_supert(self, dt, x, tot_samples):
         dt.set_impurity(dt)
         dt.calculate_features_importance(tot_samples)
@@ -157,9 +147,7 @@ class LOREM(object):
             y = self.bb_predict(x.reshape(1, -1))
             x = self.encdec.enc(x, y)
 
-        Z_list = self.multi_neighgen_fn(x, runs, samples)
-
-
+        Z_list = self.neigh_gen.multi_generate(x, samples, runs)
 
         Yb_list = list()
         #print('la Z creata ', len(Z_list), Z_list[0])
