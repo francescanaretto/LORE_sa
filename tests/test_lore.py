@@ -68,7 +68,7 @@ def test_learn_a_model():
     assert Y_pred[10] == 1, "The expected class for record 10 should be 1"
 
 
-def notest_lore_explainer():
+def test_lore_explainer():
     df, class_name = prepare_adult_dataset('./datasets/adult.csv')
     df, feature_names, class_values, numeric_columns, rdf, real_feature_names, features_map = prepare_dataset(
         df, class_name, encdec='onehot')
@@ -95,8 +95,15 @@ def notest_lore_explainer():
     def bb_predict_proba(X):
         return bb.predict_proba(X)
 
-    # example of predictions
-    Y_pred = bb_predict(X_test)
+    numeric_columns_index = [i for i, c in enumerate(feature_names) if c in numeric_columns]
+    nbr_features = len(feature_names)
+    nbr_real_features = X_test.shape[1]
+    feat_values = calculate_feature_values(X_test, numeric_columns_index, categorical_use_prob=False,
+                                           continuous_fun_estimation=False)
+    print(feat_values)
+
+    neighgen = GeneticProbaGenerator(bb.predict, feat_values, features_map, nbr_features,
+                                     nbr_real_features, numeric_columns_index, bb_predict_proba=bb.predict_proba)
 
     i2e = 3
     x = X_test[i2e]
@@ -113,10 +120,10 @@ def notest_lore_explainer():
 
     lore_explainer = LOREM(X_test, bb_predict, bb_predict_proba, feature_names, class_name, class_values,
                            numeric_columns, features_map,
-                           neigh_type='random', random_state=random_state, ngen=10, verbose=True, encdec=None,
+                           neigh_gen=neighgen, random_state=random_state, ngen=10, verbose=True, encdec=None,
                            K_transformed=X_test)
 
-    exp = lore_explainer.explain_instance_stable(x, samples=1000, use_weights=True, metric=neuclidean, runs=1)
+    exp = lore_explainer.explain_instance_stable(x, samples=1000, use_weights=True, metric=neuclidean, runs=3)
 
     # elf.rule, deltas_str, self.feature_importance, self.feature_importance_all, self.exemplars, self.cexemplars
     #
